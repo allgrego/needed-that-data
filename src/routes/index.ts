@@ -1,4 +1,4 @@
-import { Router as ExpressRouter, Request, Response } from "express";
+import { Router as ExpressRouter, Request, Response, NextFunction } from "express";
 import { HttpErrorResponse } from "../types/errors.types";
 import v1Routes from './v1'
 
@@ -7,9 +7,9 @@ import v1Routes from './v1'
  */
 const router = ExpressRouter()
 
-// Middleware specific for all routes
-router.use((req, res, next) => {
-    // Not much for now
+// Middleware specific for these routes
+router.use((req: Request, res: Response, next: NextFunction) => {
+    // Not doing much for now
     next();
 });
 
@@ -18,7 +18,7 @@ router.get("/", (req: Request, res: Response) => {
     const name = req.query.name ?? "World";
     res.json({
         message: `Hello, ${name}!`,
-        exampleEndpoints: [
+        endpoints: [
             "/v1/",
             "/v1/cne",
         ],
