@@ -15,12 +15,12 @@ router.use((req: Request, res: Response, next: NextFunction) => {
 
 // Index
 router.get("/", (req: Request, res: Response) => {
-    const name = req.query.name ?? "World";
+    const name = req.query.name ?? "dude";
     res.json({
-        message: `Hello, ${name}!`,
-        endpoints: [
-            "/v1/",
-            "/v1/cne",
+        message: `Hello, ${name}! Welcome`,
+        tryOneOfThese: [
+            "/v1/cne/search/cid?nat=v&num=25234455",
+            "/v1/cne/search/cid?nat=v&num=25234456",
         ],
     });
 });
