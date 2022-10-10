@@ -6,6 +6,7 @@ import { Request, Response } from "express";
 import { HttpErrorResponse } from "../types/errors.types";
 import { getPersonByCid } from "../utils/cne/fetch";
 import { PersonDataCne } from "../utils/cne/fetch.types";
+import { getRifFromCid } from "../utils/cne/rif";
 import { cidNumberIsValid, nationalityIsValid, parseCidNumber, parseNationality } from "../utils/cne/validations";
 
 
@@ -45,6 +46,7 @@ export const getInfoByCID = async (req: Request, res: Response) => {
 
         // Get person data from CNE API
         const person: PersonDataCne | undefined | 'fetching-error' = await getPersonByCid(nationality, number)
+
         // Fetching error
         if (person === 'fetching-error') {
             error.error.code = 'internal'
@@ -60,6 +62,9 @@ export const getInfoByCID = async (req: Request, res: Response) => {
             res.status(404).json(error)
             return
         }
+
+        // Calculate the person RIF according to the CID
+        person.rif = getRifFromCid(nationality, number)
 
         res.json(person)
         return
