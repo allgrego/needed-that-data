@@ -14,7 +14,10 @@ router.use((req: Request, res: Response, next: NextFunction) => {
 
 router.get('/', (req: Request, res: Response) => {
     res.json({
-        message: `Hello from cne!`
+        message: `Services using CNE data`,
+        endpoints: [
+            `/v1/cne/search/cid`
+        ]
     });
 })
 

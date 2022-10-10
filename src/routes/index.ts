@@ -15,10 +15,15 @@ router.use((req: Request, res: Response, next: NextFunction) => {
 
 // Index
 router.get("/", (req: Request, res: Response) => {
-    const name = req.query.name ?? "dude";
+    const name = req.query.name ?? "user";
+
     res.json({
         message: `Hello, ${name}! Welcome`,
-        tryOneOfThese: [
+        version: process.env.APP_VERSION || 1,
+        providers: [
+            "CNE",
+        ],
+        exampleEndpoints: [
             "/v1/cne/search/cid?nat=v&num=25234455",
             "/v1/cne/search/cid?nat=v&num=25234456",
         ],

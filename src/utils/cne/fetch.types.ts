@@ -2,5 +2,6 @@ export interface PersonDataCne {
     name: string,
     state?: string,
     municipality?: string,
-    parish?: string
+    parish?: string,
+    rif?: string
 }
