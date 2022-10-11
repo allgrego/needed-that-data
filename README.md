@@ -151,6 +151,8 @@ GET /v1/bcv/rates
 <!-- api-end -->
   
 
-## Demo
+## Deployment
 
-To be deployed soon...
+The app is deployed on [Needed That Data](https://needed-that-data.herokuapp.com/). Give it a try!
+
+If an API Key is required send me an email at `allgrego14@gmail.com` and I will share it with you
