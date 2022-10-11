@@ -4,6 +4,7 @@
 import { NextFunction, Request, Response, Router as expressRouter } from "express";
 // Routes
 import cneRoutes from './cne'
+import bcvRoutes from './bcv'
 
 const router = expressRouter();
 
@@ -16,14 +17,18 @@ router.use((req: Request, res: Response, next: NextFunction) => {
 router.get('/', (req: Request, res: Response) => {
     res.json({
         message: `This is v1 index!`,
-        endpoints: [
+        baseEndpoints: [
             "/v1/cne",
+            "/v1/bcv",
         ],
     });
 })
 
 // CNE services
 router.use("/cne", cneRoutes);
+
+// BCV services
+router.use("/bcv", bcvRoutes);
 
 export default router;
 
