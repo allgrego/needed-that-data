@@ -1,7 +1,8 @@
 /**
  * All routes with the pattern "/v1/**"
  */
-import { NextFunction, Request, Response, Router as expressRouter } from "express";
+import { Request, Response, Router as expressRouter } from "express";
+import { validateMetaApiKey } from "../../controllers/authController";
 // Routes
 import cneRoutes from './cne'
 import bcvRoutes from './bcv'
@@ -9,10 +10,7 @@ import bcvRoutes from './bcv'
 const router = expressRouter();
 
 // Middleware specific for these routes
-router.use((req: Request, res: Response, next: NextFunction) => {
-    // Not doing much for now
-    next();
-});
+router.use(validateMetaApiKey);
 
 router.get('/', (req: Request, res: Response) => {
     res.json({

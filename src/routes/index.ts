@@ -7,7 +7,7 @@ import v1Routes from './v1'
  */
 const router = ExpressRouter()
 
-// Middleware specific for these routes
+// Meta Middleware
 router.use((req: Request, res: Response, next: NextFunction) => {
     // Not doing much for now
     next();
@@ -15,6 +15,8 @@ router.use((req: Request, res: Response, next: NextFunction) => {
 
 // Index
 router.get("/", (req: Request, res: Response) => {
+    // To tell the user if there is auth or not
+    const authType = Boolean(process.env.META_API_KEY || null) ? 'apikey' : 'none'
 
     res.json({
         message: `Venezuelan data API service`,
@@ -27,7 +29,8 @@ router.get("/", (req: Request, res: Response) => {
             `/v1/cne/search/cid?nat=v&num=${process.env.CNE_EXAMPLE_CID || '1234567'}`,
             "/v1/bcv/rates",
         ],
-        documentation: process.env.DOCUMENTATION_URL || 'in progress...'
+        documentation: process.env.DOCUMENTATION_URL || 'in progress...',
+        authType
     });
 });
 
