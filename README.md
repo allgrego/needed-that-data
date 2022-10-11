@@ -17,6 +17,16 @@ npm install
 yarn
 ```
 
+Create a `.env` file by copying the info from `.env.example`.
+
+```bash
+# Windows
+copy .env.example .env
+
+# Linux
+cp .env.example .env
+```
+
 Then build the JS files and run the server by doing
 
 ```bash
