@@ -15,18 +15,19 @@ router.use((req: Request, res: Response, next: NextFunction) => {
 
 // Index
 router.get("/", (req: Request, res: Response) => {
-    const name = req.query.name ?? "user";
 
     res.json({
-        message: `Hello, ${name}! Welcome`,
+        message: `Venezuelan data API service`,
         version: process.env.APP_VERSION || 1,
         providers: [
             "CNE",
+            "BCV"
         ],
         exampleEndpoints: [
-            "/v1/cne/search/cid?nat=v&num=25234455",
-            "/v1/cne/search/cid?nat=v&num=25234456",
+            `/v1/cne/search/cid?nat=v&num=${process.env.CNE_EXAMPLE_CID || '1234567'}`,
+            "/v1/bcv/rates",
         ],
+        documentation: process.env.DOCUMENTATION_URL || 'in progress...'
     });
 });
 
