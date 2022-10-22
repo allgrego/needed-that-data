@@ -6,6 +6,7 @@ import { validateMetaApiKey } from "../../controllers/authController";
 // Routes
 import cneRoutes from './cne'
 import bcvRoutes from './bcv'
+import monitorDolarRoutes from './monitor-dolar'
 
 const router = expressRouter();
 
@@ -18,6 +19,7 @@ router.get('/', (req: Request, res: Response) => {
         baseEndpoints: [
             "/v1/cne",
             "/v1/bcv",
+            "/v1/monitor-dolar",
         ],
     });
 })
@@ -27,6 +29,9 @@ router.use("/cne", cneRoutes);
 
 // BCV services
 router.use("/bcv", bcvRoutes);
+
+// Monitor Dolar Vzla services
+router.use("/monitor-dolar", monitorDolarRoutes);
 
 export default router;
 
