@@ -147,6 +147,113 @@ GET /v1/bcv/rates
 }
 ```
 
+### **Monitor Dolar USD lastest rate in VES**
+
+Get current rates of USD in VES from Monitor Dolar Vzla webpage.
+
+`usd` the VES/USD rate. Equivalent to USD 1
+`monitorDate` refers to the date of update provided by Monitor Dolar
+`currentTimestamp` refers to the time when the request is responded
+
+```http
+GET /v1/monitor-dolar/rates/last
+```
+
+- Response
+
+```json
+{
+  "currency": "VES",
+  "usd": 9.04,
+  "monitorDate": "2022-11-21T17:00:00.000Z",
+  "currentTimestamp": "2022-10-22T08:15:45.375Z"
+}
+```
+
+- Error Response
+
+```json
+{
+  "error": {
+    "code": "internal",
+    "message": "There was an error fetching the data from Monitor Dolar"
+  }
+}
+```
+
+### **USD rate history in VES from Monitor Dolar**
+
+Get the last 10 rates of USD in VES from Monitor Dolar Vzla webpage from newest to oldest.
+
+`usd` the VES/USD rate. Equivalent to USD 1
+`date` refers to the date of update provided by Monitor Dolar
+`currentTimestamp` refers to the time when the request is responded
+
+```http
+GET /v1/monitor-dolar/rates
+```
+
+- Response
+
+```json
+{
+  "currency": "VES",
+  "rates": Array[10][
+    {
+      "usd": 9.04,
+      "date": "2022-11-21T17:00:00.000Z"
+    },
+    {
+      "usd": 9.02,
+      "date": "2022-11-21T13:00:00.000Z"
+    },
+    {
+      "usd": 9.01,
+      "date": "2022-11-20T17:00:00.000Z"
+    },
+    {
+      "usd": 9.06,
+      "date": "2022-11-20T13:00:00.000Z"
+    },
+    {
+      "usd": 9.06,
+      "date": "2022-11-19T17:00:00.000Z"
+    },
+    {
+      "usd": 9.02,
+      "date": "2022-11-19T13:00:00.000Z"
+    },
+    {
+      "usd": 9.03,
+      "date": "2022-11-18T17:00:00.000Z"
+    },
+    {
+      "usd": 8.96,
+      "date": "2022-11-18T13:00:00.000Z"
+    },
+    {
+      "usd": 8.91,
+      "date": "2022-11-17T17:00:00.000Z"
+    },
+    {
+      "usd": 8.93,
+      "date": "2022-11-17T13:00:00.000Z"
+    }
+  ],
+  "currentTimestamp": "2022-10-22T08:19:37.166Z"
+}
+```
+
+- Error Response
+
+```json
+{
+  "error": {
+    "code": "internal",
+    "message": "There was an error fetching the data from Monitor Dolar"
+  }
+}
+```
 
 <!-- api-end -->
   

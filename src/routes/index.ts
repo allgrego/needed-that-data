@@ -23,11 +23,14 @@ router.get("/", (req: Request, res: Response) => {
         version: process.env.APP_VERSION || 1,
         providers: [
             "CNE",
-            "BCV"
+            "BCV",
+            "Monitor Dolar"
         ],
         exampleEndpoints: [
             `/v1/cne/search/cid?nat=v&num=${process.env.CNE_EXAMPLE_CID || '1234567'}`,
             "/v1/bcv/rates",
+            "/v1/monitor-dolar/rates",
+            "/v1/monitor-dolar/rates/last",
         ],
         documentation: process.env.DOCUMENTATION_URL || 'in progress...',
         authType
