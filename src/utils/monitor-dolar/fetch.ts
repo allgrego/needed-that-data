@@ -48,7 +48,7 @@ export const getMonitorRateHistory = async (): Promise<(MonitorRate | null)[] | 
             // Date text in format "dd/mm/yyyy HH:mm PM"
             const [dateText] = dateMatches
 
-            const date: Date | undefined = parseMonitorDate(dateText)
+            const date: string | undefined = parseMonitorDate(dateText)
 
             let [ratetext] = contentMatches
             // Remove pre
@@ -69,7 +69,7 @@ export const getMonitorRateHistory = async (): Promise<(MonitorRate | null)[] | 
         // Clean (remove falsy values)
         const filteredRatesHistoryData: (MonitorRate | null)[] = ratesHistoryData.filter(r => Boolean(r))
         // Sort them
-        filteredRatesHistoryData.sort((a: MonitorRate | null, b: MonitorRate | null) => Number(a?.date?.getTime()) - Number(b?.date?.getTime()));
+        filteredRatesHistoryData.sort((a: MonitorRate | null, b: MonitorRate | null) => Number(new Date(String(a?.date)).getTime()) - Number(new Date(String(b?.date)).getTime()));
 
         return ratesHistoryData
 
@@ -107,9 +107,9 @@ export const cleanRateStr = (rateStr: string): string => {
  * 
  * @param {string} monitorDate Date obtained from monitor in format ("dd/mm/yyyy HH:mm PM")
  * 
- * @return {Date} parsed date as string in format 'yyyy-mm-dd'
+ * @return {string | undefined} parsed date as string in format 'yyyy-mm-dd'
  */
-export const parseMonitorDate = (monitorDate: string): Date | undefined => {
+export const parseMonitorDate = (monitorDate: string): string | undefined => {
 
     if (!monitorDate) return undefined
 
@@ -126,8 +126,7 @@ export const parseMonitorDate = (monitorDate: string): Date | undefined => {
 
     if (amPm.toUpperCase() === 'PM' && hours < 12) hours += 12
 
-    const date = new Date(year, month, day)
-    date.setHours(hours, minutes)
+    const date = new Date(year, month - 1, day, hours, minutes)
 
-    return date
+    return date.toISOString()
 }
