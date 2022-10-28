@@ -1,6 +1,6 @@
 export interface MonitorRate {
     usd?: number | string | null;
-    date?: Date;
+    date?: string;
 }
 
 export interface MonitorRatesHistory {

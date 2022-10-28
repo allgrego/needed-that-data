@@ -33,8 +33,8 @@ export const getLastUsdRate = async (req: Request, res: Response) => {
         }
 
         const { date: monitorDate, ...rest } = lastRate
-
-        const now = new Date()
+        // Now timestamp in ISO format "yyyy-mm-ddTHH:mm:ss.tzZ"
+        const now = new Date().toISOString()
 
         res.json({
             currency: 'VES',
