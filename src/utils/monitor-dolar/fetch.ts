@@ -42,7 +42,7 @@ export const getMonitorRateHistory = async (): Promise<(MonitorRate | null)[] | 
             if (!dateRaw || !contentRaw) return null
 
             const dateMatches = dateRaw.match(/(\d{1,2}\/\d{1,2}\/\d{4})\s+(\d{1,2}\:\d{2})\s+(pm|am)/gmi)
-            const contentMatches = contentRaw.match(/\d{2}\s+(pm|am)\s+bs\s+(.*)\s+por\s+1\s+/gmi)
+            const contentMatches = contentRaw.match(/\d{2}\s+(pm|am)\s+bs\s+(.*)\s?por\s+1\s+d\Wlar/gmi)            
 
             if (!contentMatches || !dateMatches) return null
             // Date text in format "dd/mm/yyyy HH:mm PM"
@@ -51,10 +51,12 @@ export const getMonitorRateHistory = async (): Promise<(MonitorRate | null)[] | 
             const date: string | undefined = parseMonitorDate(dateText)
 
             let [ratetext] = contentMatches
+            
             // Remove pre
             ratetext = ratetext.replace(/\d{2}\s+(pm|am)\s+bs\s+/gmi, '')
+            
             // Remove post
-            ratetext = ratetext.replace(/\s+por\s+1\s+/gmi, '')
+            ratetext = ratetext.replace(/\s?por\s+1\s+d\Wlar/gmi, '')
             ratetext = cleanRateStr(ratetext)
 
             const rate = Number(ratetext)
@@ -70,8 +72,8 @@ export const getMonitorRateHistory = async (): Promise<(MonitorRate | null)[] | 
         const filteredRatesHistoryData: (MonitorRate | null)[] = ratesHistoryData.filter(r => Boolean(r))
         // Sort them
         filteredRatesHistoryData.sort((a: MonitorRate | null, b: MonitorRate | null) => Number(new Date(String(a?.date)).getTime()) - Number(new Date(String(b?.date)).getTime()));
-
-        return ratesHistoryData
+        // Remove any falsy value (in case of null)
+        return ratesHistoryData.filter(r => r)
 
     } catch (error) {
         console.log(error);
